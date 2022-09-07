@@ -55,29 +55,27 @@ if __name__ == '__main__':
 
     lines = content.rsplit("\n")
     new_content = []
-    new_content.append("% " + title_string)
-    new_content.append("% " + author_string)
+    # new_content.append("% " + title_string)
+    # new_content.append("% " + author_string)
 
     for line in lines:
-
         if line == "更多精校小说尽在知轩藏书下载：http://www.zxcs.me/" or line == "==========================================================" or line == title_string or line == title_string + " 作者：" + author_string or line == "作者：" + author_string or line == "作者: " + author_string:
             continue
         if line == "简介:" or line == "内容简介：" or line == "内容简介":
-            new_content.append("### " + line + "\n")
+            new_content.append("## " + line + "\n")
             continue
         if re.match(r'^\s*(楔子|序章|序言|序|引子).*', line):
             new_content.append("## " + line + "\n")
             continue
         if re.match(r'^\s*[第][0123456789ⅠI一二三四五六七八九十零序〇百千两]*[卷].*', line):
             new_content.append("# " + line + "\n")
+            continue
         if re.match(r'^\s*[卷][0123456789ⅠI一二三四五六七八九十零序〇百千两]*[ ].*', line):
             new_content.append("# " + line + "\n")
             continue
-
         if re.match(r'^\s*[第][0123456789ⅠI一二三四五六七八九十零序〇百千两]*[章].*', line):
             new_content.append("## " + line + "\n")
             continue
-
         new_content.append(line + "\n")
     new_content = "\n".join(new_content)
 
@@ -89,7 +87,6 @@ if __name__ == '__main__':
     ## 生成epub文件
     start02 = time.perf_counter()
     print("开始生成EPUB文件........")
-    # TODO: user customer fonts, make css change
     os.system('pandoc "%s" -o "%s" -t epub3 --css=./epub.css --epub-chapter-level=2 --epub-cover-image="%s"' % (
         txtname, epubname, jpgname))
     end02 = time.perf_counter()
