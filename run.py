@@ -87,8 +87,8 @@ if __name__ == '__main__':
     ## 生成epub文件
     start02 = time.perf_counter()
     print("开始生成EPUB文件........")
-    os.system('pandoc "%s" -o "%s" -t epub3 --css=./epub.css --epub-chapter-level=2 --epub-cover-image="%s"' % (
-        txtname, epubname, jpgname))
+    os.system('pandoc "%s" -o "%s" -t epub3 --css=./epub.css --epub-chapter-level=2 --epub-cover-image="%s" --epub-embed-font=./方正聚珍新仿.ttf --metadata title="%s" --metadata creator="%s"' % (
+        txtname, epubname, jpgname, title_string, author_string))
     end02 = time.perf_counter()
     print('epub用时：%s秒' % (end02 - start02))
 
